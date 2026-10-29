@@ -1,0 +1,67 @@
+name: Build
+
+on:
+  workflow_dispatch:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            label: windows
+          - os: macos-14          # Apple Silicon (M1/M2/M3)
+            label: macos-arm64
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install
+        shell: bash
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e . pyinstaller
+
+      - name: Build .exe
+        if: runner.os == 'Windows'
+        shell: bash
+        run: |
+          pyinstaller --noconfirm --onefile --name parser-2gis-new \
+            --collect-all parser_2gis --collect-all flask --collect-all pydantic \
+            parser-2gis.py
+
+      - name: Build .dmg
+        if: runner.os == 'macOS'
+        run: |
+          pyinstaller --noconfirm --windowed --name Parser2GIS \
+            --collect-all parser_2gis --collect-all flask --collect-all pydantic \
+            parser-2gis.py
+          hdiutil create -volname Parser2GIS -srcfolder dist/Parser2GIS.app \
+            -ov -format UDZO Parser2GIS-macos-arm64.dmg
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: parser-2gis-${{ matrix.label }}
+          path: |
+            dist/parser-2gis-new.exe
+            Parser2GIS-macos-arm64.dmg
+          if-no-files-found: error
+
+      - name: Publish release (tags only)
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/parser-2gis-new.exe
+            Parser2GIS-macos-arm64.dmg
