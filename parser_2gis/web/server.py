@@ -133,6 +133,7 @@ def _build_config(data: dict[str, Any]) -> Configuration:
     config.filters.require_social = bool(f.get('require_social'))
     config.filters.require_email = bool(f.get('require_email'))
     config.filters.require_website = bool(f.get('require_website'))
+    config.filters.require_no_website = bool(f.get('require_no_website'))
     config.filters.min_rating = float(f.get('min_rating', 0) or 0)
     config.filters.min_reviews = int(f.get('min_reviews', 0) or 0)
     return config

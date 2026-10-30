@@ -303,6 +303,7 @@
         <label class="check"><input type="checkbox" id="f_social"> <span data-i18n="f_social">Тек әлеуметтік желілермен</span></label>
         <label class="check"><input type="checkbox" id="f_email"> <span data-i18n="f_email">Тек e-mail барлар</span></label>
         <label class="check"><input type="checkbox" id="f_site"> <span data-i18n="f_site">Тек сайты барлар</span></label>
+        <label class="check"><input type="checkbox" id="f_nosite"> <span data-i18n="f_nosite">Тек сайты ЖОҚТАР (салондар / лидтер)</span></label>
         <div class="rowmini">
           <label class="field"><span data-i18n="rating_from">Рейтинг (бастап)</span><input type="number" id="f_rating" min="0" max="5" step="0.1" value="0"></label>
           <label class="field"><span data-i18n="reviews_from">Пікірлер (бастап)</span><input type="number" id="f_reviews" min="0" step="1" value="0"></label>
@@ -511,6 +512,7 @@
         dedup_across_niches:$('f_dedup_niches').checked, dedup_franchises:$('f_dedup').checked, require_phone:$('f_phone').checked,
         require_whatsapp:$('f_wa').checked, require_social:$('f_social').checked,
         require_email:$('f_email').checked, require_website:$('f_site').checked,
+        require_no_website:$('f_nosite').checked,
         min_rating:parseFloat($('f_rating').value||'0'), min_reviews:parseInt($('f_reviews').value||'0',10)
       },
       advanced: {
