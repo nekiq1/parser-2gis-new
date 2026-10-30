@@ -1,4 +1,4 @@
-name: Build
+﻿name: Build
 
 on:
   workflow_dispatch:
@@ -16,7 +16,7 @@ jobs:
         include:
           - os: windows-latest
             label: windows
-          - os: macos-14          # Apple Silicon (M1/M2/M3)
+          - os: macos-15          # Apple Silicon (M1/M2/M3)
             label: macos-arm64
     runs-on: ${{ matrix.os }}
     steps:
@@ -65,3 +65,5 @@ jobs:
           files: |
             dist/parser-2gis-new.exe
             Parser2GIS-macos-arm64.dmg
+
+

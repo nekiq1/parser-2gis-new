@@ -1,5 +1,5 @@
-# Release builds on tag v*.*.*
-# macos-15 (arm64) → .dmg; windows → .zip with .exe; linux → .tar.gz
+﻿# Release builds on tag v*.*.*
+# macos-15 (arm64) в†’ .dmg; windows в†’ .zip with .exe; linux в†’ .tar.gz
 
 name: Release
 
@@ -48,8 +48,6 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-          cache: pip
-
       - name: Install dependencies
         run: |
           python -m pip install -U pip setuptools wheel
@@ -142,3 +140,4 @@ jobs:
           artifacts: 'artifacts/*'
           allowUpdates: true
           token: ${{ secrets.GITHUB_TOKEN }}
+

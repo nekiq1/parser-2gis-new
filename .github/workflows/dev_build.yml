@@ -1,5 +1,5 @@
-# Development builds: Windows .exe, macOS arm64 .dmg, Linux binary
-# macos-14 retired/brownout (Oct–Nov 2026) → use macos-15
+﻿# Development builds: Windows .exe, macOS arm64 .dmg, Linux binary
+# macos-14 retired/brownout (OctвЂ“Nov 2026) в†’ use macos-15
 
 name: Development Build
 
@@ -32,8 +32,6 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-          cache: pip
-
       - name: Install dependencies
         run: |
           python -m pip install -U pip setuptools wheel
@@ -87,3 +85,4 @@ jobs:
           path: out/*
           if-no-files-found: error
           retention-days: 30
+
